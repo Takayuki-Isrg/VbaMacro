@@ -6,10 +6,10 @@ Dim objApp, objExcel, wshShell
 	Set wshShell = WScript.CreateObject("WScript.Shell")
 
 	'個人用マクロブックを開く
-	Set objExcel = GetObject("C:\PERSONAL2.XLSB")
+	Set objExcel = GetObject("C:\PERSONAL.XLSB")
 	
 	'MicroPrintToPDF1を実行する
-	objExcel.Application.Run "PERSONAL2.XLSB!MicroPrintToPDF1.MicroPrintToPDF1"
+	objExcel.Application.Run "PERSONAL.XLSB!MicroPrintToPDF1.MicroPrintToPDF1"
 	
 '終了処理
 Set wshShell = Nothing
