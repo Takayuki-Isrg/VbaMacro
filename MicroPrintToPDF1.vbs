@@ -10,7 +10,6 @@ Sub MicroPrintToPDF1()
     'ループ1
     For i = 1 To 1
     
-    
     '*** 「sheet1」のページ設定：start ***
     
     With Worksheets("sheet1").PageSetup
@@ -28,28 +27,17 @@ Sub MicroPrintToPDF1()
     .FitToPagesWide = 1
     
     '*** 「sheet1」のページ設定：end ***
-    
-    
-    'シートに中身がなければ印刷せずに次のページ設定に飛ぶ
-    If Not IsError(Cells(4, 3)) Then
-        If Not Cells(4, 3).HasFormula Then
-            If Cells(4, 3) = "" Then
-                Exit For
-            End If
-        End If
-    End If
 
     End With
     
-    '「 sheet1 」のシートを「 C:\PDF置き場 」にPDF出力(Microsoft Print to PDF形式)
+    '「 sheet1 」のシートを「 C:\temp 」にPDF出力(Microsoft Print to PDF形式)
     Worksheets("sheet1").PrintOut ActivePrinter:="Microsoft Print to PDF", _
-        PrintToFile:=True, PrToFileName:="C:\PDF置き場\Book1_sheet1" & ".pdf"
+        PrintToFile:=True, PrToFileName:="C:\temp\Book1_sheet1" & ".pdf"
       
 Next i
 
     'ループ2
     For i = 1 To 1
-    
     
     '*** 「sheet2」のページ設定：start ***
     
@@ -67,24 +55,15 @@ Next i
     'すべての列を1ページに印刷
     .FitToPagesWide = 1
     
-    '*** 「sheet2」のページ設定：end ***
-    
-    
-    'シートに中身がなければ印刷せずに次のページ設定に飛ぶ
-    If Not IsError(Cells(4, 3)) Then
-        If Not Cells(4, 3).HasFormula Then
-            If Cells(4, 3) = "" Then
-                Exit For
-            End If
-        End If
-    End If
-
     End With
     
-    '「sheet2 」のシートを「 C:\PDF置き場 」にPDF出力(microsoft print to pdf形式)
+    '*** 「sheet2」のページ設定：end ***
+
+
+    '「sheet2 」のシートを「 C:\temp 」にPDF出力(microsoft print to pdf形式)
     Worksheets("sheet2").PrintOut ActivePrinter:="Microsoft Print to PDF", _
-        PrintToFile:=True, PrToFileName:="C:\PDF置き場\Book1_sheet2" & ".pdf"
-               
+        PrintToFile:=True, PrToFileName:="C:\temp\Book1_sheet2" & ".pdf"
+
 Next i
 
 
@@ -113,19 +92,14 @@ Next i
     
     
     ' シートに中身がなければ印刷せずに終了する
-        If Not IsError(Cells(4, 3)) Then
-            If Not Cells(4, 3).HasFormula Then
-                If Cells(4, 3) = "" Then
-                Exit For
-            End If
-        End If
+        If Not Cells(4, 3) = "" Then
+		'「 sheet3 」のシートを「 C:\temp 」にPDF出力(Microsoft Print to PDF形式)
+    	Worksheets("sheet3").PrintPreview EnableChanges:=True
+        	Worksheets("sheet3").PrintOut ActivePrinter:="Microsoft Print to PDF", _
+            	PrintToFile:=True, PrToFileName:="C:\temp\Book1_sheet3" & ".pdf"
+                Else: Exit For
     End If
-    
-    '「 sheet3 」のシートを「 C:\PDF置き場 」にPDF出力(Microsoft Print to PDF形式)
-    Worksheets("sheet3").PrintPreview EnableChanges:=True
-        Worksheets("sheet3").PrintOut ActivePrinter:="Microsoft Print to PDF", _
-            PrintToFile:=True, PrToFileName:="C:\PDF置き場\Book1_sheet3" & ".pdf"
-        
+
 Next i
         
     '終了処理
