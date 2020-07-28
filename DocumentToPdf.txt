@@ -1,0 +1,39 @@
+Private Declare PtrSafe Function SetCurrentDirectory Lib "kernel32" Alias _
+    "SetCurrentDirectoryA" (ByVal CurrentDir As String) As Long
+
+Sub DocumentToPdf()
+ 
+    '変数宣言
+    Dim wDoc As Word.Document
+    Dim oWord As Object
+    
+    'カレントディレクトリを"C:\Users\(ユーザー名)\OneDrive\"に設定
+    SetCurrentDirectory "C:\Users\(ユーザー名)\OneDrive\"
+    
+    With ActiveDocument.PageSetup
+    
+    '文書を読み取り専用で開く
+    Set wDoc = Documents.Open("文書1.docm", ReadOnly:=True)
+        Application.ScreenUpdating = False
+    
+    Set oWord = CreateObject("Word.Application")
+      
+    '"Microsoft Print to PDF"をアクティブプリンターに設定する
+    oWord.WordBasic.FilePrintSetup Printer:="Microsoft Print to PDF", _
+        DoNotSetAsSysDefault:=1 'デフォルトプリンターに設定しないフラグ
+    
+    '縦向きで印刷
+    .Orientation = wdOrientPortrait
+ 
+    End With
+        
+    'PDFファイルで保存
+    wDoc.ExportAsFixedFormat ExportFormat:=wdExportFormatPDF, _
+    outputfilename:="C:\PDF置き場\文書1.pdf"
+        
+    '事後処理
+    wDoc.Close SaveChanges:=wdDoNotSaveChanges
+    Set wDoc = Nothing
+    Set oWord = Nothing
+ 
+End Sub
