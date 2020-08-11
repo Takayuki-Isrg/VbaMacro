@@ -1,0 +1,48 @@
+Sub MicroPrintToPDF3()
+
+    '変数宣言
+    Dim i As Integer, rng As Variant
+
+    '" 知識・用語集.xlsx "を開く
+    Application.ScreenUpdating = False
+        Workbooks.Open "C:\Users\ユーザー名\OneDrive\Book1.xlsx"
+   
+    
+    ' *** 「Sheet1」のページ設定：start ***
+       
+    For i = 1 To 1
+    
+    With Worksheets("Sheet1").PageSetup
+    
+    '"Sheet1"のシートを選択する
+    Worksheets("Sheet1").Select
+    
+    'rngにセルの範囲を設定する
+    Set rng = Range("C$4:C$50")
+    
+    ' B1～D17セルを印刷範囲として指定する
+    Worksheets("Sheet1").PageSetup.PrintArea = "B1:D17"
+        
+    ' 印刷向きを横方向に設定
+    .Orientation = xlLandscape
+                       
+    ' すべての列を1ページに印刷
+    .FitToPagesWide = 1
+    
+    End With
+    
+    ' *** 「Sheet1」のページ設定：end ***
+    
+    ' シートに中身がなければ印刷せずに終了する
+    If WorksheetFunction.CountA(rng) = 0 Then
+        Exit For
+    End If
+    
+    '「 Sheet1 」のシートを「 C:\PDf置き場 」にPDF出力(Microsoft Print to PDF形式)
+    Worksheets("Sheet1").PrintPreview EnableChanges:=True
+        Worksheets("Sheet1").PrintOut ActivePrinter:="Microsoft Print to PDF", _
+            PrintToFile:=True, PrToFileName:="C:\PDf置き場\Book1_Sheet1" & ".pdf"
+        
+Next i
+
+End Sub
