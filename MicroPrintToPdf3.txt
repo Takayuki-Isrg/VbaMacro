@@ -3,7 +3,7 @@ Sub MicroPrintToPDF3()
     '変数宣言
     Dim i As Integer, rng As Variant
 
-    '" 知識・用語集.xlsx "を開く
+    'ブックを開く
     Application.ScreenUpdating = False
         Workbooks.Open "C:\Users\ユーザー名\OneDrive\Book1.xlsx"
    
